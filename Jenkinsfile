@@ -74,7 +74,34 @@ pipeline {
                 }
             }
         }  
-
+      stages {
+        stage('Build & Tag Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: env.DOCKER_CREDENTIALS_ID, toolName: 'docker') {
+                        sh 'docker build -t imas10/boardshack:latest .'
+                    }
+                }
+            }
+        }
+        
+        stage('Docker Image Scan') {
+            steps {
+                script {
+                    sh 'trivy image --format table -o trivy-fs-report.html imas10/boardshack:latest'
+                }
+            }
+        }
+        
+        stage('Push Docker Image') { // Corrected stage name to "Push Docker Image"
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: env.DOCKER_CREDENTIALS_ID, toolName: 'docker') {
+                        sh 'docker push imas10/boardshack:latest' // Corrected push command
+                    }
+                }
+            }
+        }
 
     }
 }
