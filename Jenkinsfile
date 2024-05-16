@@ -22,12 +22,17 @@ pipeline {
             }
         }
         
-        stage('Test') {
+    stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
     
+    stage('File System Scan') {
+            steps {
+                sh "trivy fs --formt table -o trivy-fs-report.html ."
+            }
+        }
     
 
         
