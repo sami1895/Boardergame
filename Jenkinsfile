@@ -8,6 +8,7 @@ pipeline {
     
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
+        DOCKER_CREDENTIALS_ID = 'docker-cred'
     }
 
     stages {
