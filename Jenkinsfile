@@ -111,7 +111,7 @@ pipeline {
                    git add deployment-service.yaml
                    git commit -m "Updated Deployment Manifest"
                 """
-                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                withCredentials([gitUsernamePassword(credentialsId: 'git-cred', gitToolName: 'Default')]) {
                   sh "git push https://github.com/sami1895/Boardergame main"
             }
         }
