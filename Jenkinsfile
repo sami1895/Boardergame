@@ -8,7 +8,7 @@ pipeline {
     
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        DOCKERHUB_CREDENTIALS = credentials('docker-cred')
     }
 
     stages {
