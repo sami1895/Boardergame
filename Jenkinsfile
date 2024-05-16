@@ -10,10 +10,10 @@ pipeline {
         SCANNER_HOME= tool 'sonar-scanner'
         DOCKERHUB_CREDENTIALS = credentials('docker-cred')
         RELEASE = "1.0.0"
-	    DOCKER_USER = "imas10"
-        DOCKER_PASS = 'dockerhub'
-	    IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-	    IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+	DOCKER_USER = "imas10"
+        DOCKER_PASS = 'docker-cred'
+	IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+	IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
 
     stages {
