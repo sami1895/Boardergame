@@ -8,7 +8,7 @@ pipeline {
     
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
-        DOCKER_CREDENTIALS_ID = 'docker-cred'
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
 
     stages {
@@ -67,35 +67,13 @@ pipeline {
             }
         }
 
-      stages {
-        stage('Build & Tag Docker Image') {
+       stage('Docker Login') {
             steps {
-                script {
-                    withDockerRegistry(credentialsId: env.DOCKER_CREDENTIALS_ID, toolName: 'docker') {
-                        sh 'docker build -t imas10/boardshack:latest .'
-                    }
-                }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
-        }
-        
-        stage('Docker Image Scan') {
-            steps {
-                script {
-                    sh 'trivy image --format table -o trivy-fs-report.html imas10/boardshack:latest'
-                }
-            }
-        }
-        
-        stage('Push Docker Image') { // Corrected stage name to "Push Docker Image"
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: env.DOCKER_CREDENTIALS_ID, toolName: 'docker') {
-                        sh 'docker push imas10/boardshack:latest' // Corrected push command
-                    }
-                }
-            }
-        }
+        } 
+      
 
     }
 }
-}
+
