@@ -66,6 +66,14 @@ pipeline {
             }
         }
 
+      stage('Build & Tag Docker Image') {
+            steps {
+                withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+               
+                    sh "docker build -t imas10/bordergame:latest ."
+                }
+            }
+        }  
 
 
     }
