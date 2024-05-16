@@ -7,7 +7,8 @@ pipeline {
     }
     
     environment {
-        SCANNER_HOME= tool 'sonar-scanner'
+        APP_NAME = "boardergame"
+	SCANNER_HOME= tool 'sonar-scanner'
         DOCKERHUB_CREDENTIALS = credentials('docker-cred')
         RELEASE = "1.0.0"
 	DOCKER_USER = "imas10"
