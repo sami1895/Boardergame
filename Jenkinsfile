@@ -103,6 +103,19 @@ pipeline {
             }
         }	    
 
+	 stage("Push the changed deployment file to Git") {
+            steps {
+                sh """
+                   git config --global user.name "sami1895"
+                   git config --global user.email "badricsami1818@gmail.com"
+                   git add deployment-service.yaml
+                   git commit -m "Updated Deployment Manifest"
+                """
+                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                  sh "git push https://github.com/sami1895/Boardergame main"
+            }
+        }
+        }   
 	    
     }
 }
