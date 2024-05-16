@@ -9,6 +9,11 @@ pipeline {
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
         DOCKERHUB_CREDENTIALS = credentials('docker-cred')
+        RELEASE = "1.0.0"
+	    DOCKER_USER = "imas10"
+        DOCKER_PASS = 'dockerhub'
+	    IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+	    IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
 
     stages {
@@ -59,20 +64,25 @@ pipeline {
             }
         }
 
-     stage('Publish To Nexus') {
-            steps {
-                withMaven(globalMavenSettingsConfig: 'global-settings', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
-                    sh 'mvn deploy'
-                }
-            }
-        }    
+
+        
      
       stage('Docker Login') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-      
+
+       stage("Build & Push Docker Image") {
+              steps {
+                  script {
+                     def dockerImage = docker.build("${IMAGE_NAME}")
+                     dockerImage.push("${IMAGE_TAG}")
+                     dockerImage.push('latest')
+                }
+            }
+           }
+        
       
 
     }
