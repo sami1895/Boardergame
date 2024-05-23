@@ -119,11 +119,11 @@ pipeline {
 
 	 stage("slack") {
            steps {
-	          slackSend channel: '#jenkins',
+	          slackSend channel: '#jenkins-boarder',
                   color: 'good',
                   failOnError: true,
                   message: "Successful completion of ${env.JOB_NAME} (<${env.BUILD_URL}|Open>)",
-                  tokenCredentialId: 'slack'
+                  tokenCredentialId: 'slackboarder'
 
 	    }
         }   
