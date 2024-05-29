@@ -64,13 +64,7 @@ pipeline {
                 sh 'mvn package'
             }
     }
-    stage('Deploy to Nexus') {
-            steps {
-      withMaven(globalMavenSettingsConfig: 'global-settings', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
-                sh "mvn deploy -x"
-      }
-	    }
-    }
+    
      
       stage('Docker Login') {
             steps {
