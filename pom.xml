@@ -79,24 +79,17 @@
 	</dependencies>
 
 
-   <distributionManagement>
-
-<repository>
-
-<id>maven-releases</id>	
-<url>http://192.168.50.13:8081/repository/maven-releases/</url>
-
-</repository>
-
-	   
+<distributionManagement>
+    <repository>
+        <id>maven-releases</id>
+        <url>http://192.168.50.13:8081/repository/maven-releases/</url>
+    </repository>
     <snapshotRepository>
-
-
-<id>maven-snapshots</id>
-<url>http://192.168.50.13:8081/repository/maven-snapshots/</url>
-</snapshotRepository>
+        <id>maven-snapshots</id>
+        <url>http://192.168.50.13:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
 </distributionManagement>
-
+   
 	
 
 	<build>
