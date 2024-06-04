@@ -77,9 +77,9 @@
     <version>0.8.7</version>
 </dependency>
 	</dependencies>
+   
 
-
- <distributionManagement>
+<distributionManagement>
         <repository>
             <id>maven-releases</id>
             <url>http://192.168.50.13:8081/repository/maven-releases/</url>
@@ -89,7 +89,6 @@
             <url>http://192.168.50.13:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-   
 	
 
 	<build>
